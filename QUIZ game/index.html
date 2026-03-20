@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrainClash — Multiplayer Quiz & Puzzle</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ===== DASHBOARD ===== -->
+    <section id="dashboard" class="screen active">
+      <div class="logo">
+        <h1>🧠 BrainClash</h1>
+        <p class="tagline">Challenge your brain. Clash with friends.</p>
+      </div>
+      <div class="card">
+        <input type="text" id="playerName" placeholder="Your nickname" maxlength="20" aria-label="Player name" autocomplete="off">
+      </div>
+      <p class="label" style="margin:16px 0 10px">Choose a Game</p>
+      <div class="dashboard-grid">
+        <button class="dash-card" data-game="trivia">
+          <span class="dash-icon">❓</span>
+          <span class="dash-title">Trivia Blitz</span>
+          <span class="dash-desc">Quick-fire knowledge quiz</span>
+          <span class="dash-players">👥 1-5 players</span>
+        </button>
+        <button class="dash-card" data-game="number">
+          <span class="dash-icon">🔢</span>
+          <span class="dash-title">Number Crunch</span>
+          <span class="dash-desc">Speed math puzzles</span>
+          <span class="dash-players">👥 1-5 players</span>
+        </button>
+        <button class="dash-card" data-game="tictactoe">
+          <span class="dash-icon">❌⭕</span>
+          <span class="dash-title">Tic Tac Toe</span>
+          <span class="dash-desc">Classic X & O battle</span>
+          <span class="dash-players">👥 2 players</span>
+        </button>
+        <button class="dash-card" data-game="puzzle">
+          <span class="dash-icon">🧩</span>
+          <span class="dash-title">Image Puzzle</span>
+          <span class="dash-desc">Sliding tile race</span>
+          <span class="dash-players">👥 1-5 players</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== MODE SELECT (after picking game) ===== -->
+    <section id="modeSelect" class="screen">
+      <div class="card">
+        <button class="back-btn" id="btnBackDash" aria-label="Back to dashboard">← Back</button>
+        <h2 id="modeGameTitle"></h2>
+        <p class="sub" id="modeGameDesc"></p>
+        <div class="mode-actions">
+          <button id="btnCreate" class="btn primary">🏠 Create Room</button>
+          <button id="btnRandom" class="btn secondary">🎲 Play with Random</button>
+          <div class="join-row">
+            <input type="text" id="roomCodeInput" placeholder="Room Code" maxlength="6" aria-label="Room code" autocomplete="off">
+            <button id="btnJoin" class="btn outline">Join</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LOBBY ===== -->
+    <section id="lobby" class="screen">
+      <div class="card">
+        <button class="back-btn" id="btnBackMode" aria-label="Back">← Leave Room</button>
+        <h2>Room <span id="lobbyCode" class="highlight"></span></h2>
+        <p id="lobbyGameLabel" class="sub"></p>
+        <ul id="playerList" class="player-list" role="list" aria-label="Players"></ul>
+        <p id="waitMsg" class="waiting">Waiting for players…</p>
+        <div class="lobby-actions">
+          <button id="btnStart" class="btn primary" style="display:none">Start Game</button>
+          <button id="btnCopy" class="btn outline">📋 Copy Code</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== QUIZ GAME (trivia + number) ===== -->
+    <section id="quizGame" class="screen">
+      <div class="game-hud">
+        <span id="qCounter">1 / 7</span>
+        <span id="timer" class="timer">⏱ 15</span>
+        <span id="myScore">Score: 0</span>
+      </div>
+      <div class="card question-card">
+        <h2 id="qText"></h2>
+        <div id="opts" class="options" role="radiogroup" aria-label="Answer options"></div>
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+      </div>
+      <div id="liveScores" class="live-scores" role="table" aria-label="Live scores"></div>
+    </section>
+
+    <!-- ===== TIC TAC TOE ===== -->
+    <section id="tttGame" class="screen">
+      <div class="game-hud">
+        <span id="tttInfo">Your turn</span>
+        <span id="tttScoreDisplay">Score: 0</span>
+      </div>
+      <div class="card ttt-card">
+        <div id="tttStatus" class="ttt-status"></div>
+        <div id="tttBoard" class="ttt-board" role="grid" aria-label="Tic Tac Toe board"></div>
+      </div>
+      <div id="tttScores" class="live-scores"></div>
+    </section>
+
+    <!-- ===== IMAGE PUZZLE ===== -->
+    <section id="puzzleGame" class="screen">
+      <div class="game-hud">
+        <span id="puzzleMoves">Moves: 0</span>
+        <span id="puzzleTimer" class="timer">⏱ 0:00</span>
+        <span id="puzzleScoreDisplay">Score: 0</span>
+      </div>
+      <div class="card puzzle-card">
+        <div id="puzzleStatus" class="puzzle-status"></div>
+        <div id="puzzleGrid" class="puzzle-grid" role="grid" aria-label="Sliding puzzle"></div>
+      </div>
+      <div id="puzzleScores" class="live-scores"></div>
+    </section>
+
+    <!-- ===== RESULTS ===== -->
+    <section id="results" class="screen">
+      <div class="card results-card">
+        <h2>🏆 Game Over</h2>
+        <div id="resultDetail" class="result-detail"></div>
+        <ol id="finalScores" class="final-scores" role="list" aria-label="Final scores"></ol>
+        <div class="results-actions">
+          <button id="btnAgain" class="btn primary">Play Again</button>
+          <button id="btnHome" class="btn outline">🏠 Dashboard</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script src="js/triviaBlitz.js"></script>
+  <script src="js/numberCrunch.js"></script>
+  <script src="js/ticTacToe.js"></script>
+  <script src="js/imagePuzzle.js"></script>
+  <script src="js/gameManager.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BrainClash — Test Suite</title>
+  <style>
+    body { font-family: monospace; background: #111; color: #eee; padding: 20px; }
+    h1 { color: #6c5ce7; margin-bottom: 16px; }
+    .suite { margin: 16px 0; padding: 12px; background: #1a1a2e; border-radius: 8px; }
+    .suite-name { font-size: 1.1rem; color: #00cec9; margin-bottom: 8px; }
+    .pass { color: #00b894; } .fail { color: #e17055; }
+    .test { padding: 4px 0; padding-left: 16px; }
+    .summary { margin-top: 20px; padding: 16px; border-radius: 8px; font-size: 1.2rem; }
+    .summary.all-pass { background: rgba(0,184,148,.15); color: #00b894; border: 1px solid #00b894; }
+    .summary.has-fail { background: rgba(225,112,85,.15); color: #e17055; border: 1px solid #e17055; }
+  </style>
+</head>
+<body>
+  <h1>🧠 BrainClash — Full Test Suite (4 Games)</h1>
+  <div id="output"></div>
+  <div id="summary"></div>
+
+  <script src="../js/triviaBlitz.js"></script>
+  <script src="../js/numberCrunch.js"></script>
+  <script src="../js/ticTacToe.js"></script>
+  <script src="../js/imagePuzzle.js"></script>
+  <script src="../js/gameManager.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>
